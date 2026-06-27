@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DENOMATH – Belajar Redenominasi Rupiah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== LOGIN OVERLAY ===== -->
+<div id="loginOverlay" class="login-overlay active">
+  <div class="login-bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div class="login-grid-pattern"></div>
+
+  <div class="money-deco money-deco-1">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="14" width="42" height="20" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2"/><line x1="9" y1="20" x2="9" y2="20.1" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="39" y1="28" x2="39" y2="28.1" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+  </div>
+  <div class="money-deco money-deco-2">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="12" stroke="currentColor" stroke-width="1.6"/><path d="M24 17v14M20.5 19.5h5.2a2.5 2.5 0 0 1 0 5h-4.4a2.5 2.5 0 0 0 0 5h5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </div>
+  <div class="money-deco money-deco-3">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="14" width="42" height="20" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2"/></svg>
+  </div>
+  <div class="money-deco money-deco-4">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="2"/><path d="M24 17v14M20.5 19.5h5.2a2.5 2.5 0 0 1 0 5h-4.4a2.5 2.5 0 0 0 0 5h5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </div>
+
+  <div class="login-box login-box-compact">
+    <!-- Header row: logo + title side by side -->
+    <div class="login-header-row">
+      <div class="login-logo-wrap login-logo-sm">
+        <div class="login-logo">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="26" stroke="currentColor" stroke-width="3"/>
+            <circle cx="32" cy="32" r="19" stroke="currentColor" stroke-width="2"/>
+            <path d="M32 21v22M25 25.5h8.5a4 4 0 0 1 0 8h-7a4 4 0 0 0 0 8H35" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="login-title-wrap" style="text-align:left">
+        <h1 class="login-app-name" style="font-size:2rem;letter-spacing:4px">DENOMATH</h1>
+        <p class="login-tagline" style="margin-bottom:0">Media Pembelajaran Interaktif</p>
+      </div>
+    </div>
+
+    <div id="loginForm">
+      <!-- Nama + Absen dalam satu baris -->
+      <div class="login-row-2">
+        <div class="input-group" style="margin-bottom:0;flex:1">
+          <label>Nama Lengkap</label>
+          <input type="text" id="inputNama" placeholder="Nama kamu...">
+        </div>
+        <div class="input-group" style="margin-bottom:0;width:90px">
+          <label>Absen</label>
+          <input type="number" id="inputAbsen" class="input-absen" placeholder="No." min="1" max="40" inputmode="numeric">
+        </div>
+      </div>
+      <div class="input-group" style="margin-top:10px">
+        <label>Kelas</label>
+        <select id="inputKelas">
+          <option value="">-- Pilih Kelas --</option>
+          <option value="7">Kelas 7</option>
+          <option value="8">Kelas 8</option>
+          <option value="9">Kelas 9</option>
+        </select>
+      </div>
+      <button type="button" class="btn-login" style="margin-top:12px" onclick="handleLogin()">
+        <span>Mulai Belajar</span>
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INTRO REDENOMINASI OVERLAY ===== -->
+<div id="introOverlay" class="intro-overlay">
+  <div class="intro-bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+  </div>
+  <div class="intro-box">
+    <div class="intro-header">
+      <div class="intro-progress-bar">
+        <div class="intro-progress-fill" id="introProgressFill"></div>
+      </div>
+      <div class="intro-scene-label" id="introSceneLabel">Scene 1 / 6</div>
+    </div>
+    <div class="intro-stage" id="introStage"></div>
+    <div class="intro-footer">
+      <div class="intro-dots" id="introDots"></div>
+      <div class="intro-nav">
+        <button class="btn-nav" id="introBtnPrev" onclick="introPrevScene()" disabled>
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M12 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sebelumnya
+        </button>
+        <button class="btn-nav btn-next" id="introBtnNext" onclick="introNextScene()">
+          Selanjutnya
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="mainNavbar">
+  <div class="nav-brand" onclick="showPage('beranda')">
+    <div class="nav-logo-wrap">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M12 8v8M9.5 9.7h3.3a1.5 1.5 0 0 1 0 3h-2.6a1.5 1.5 0 0 0 0 3h3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="nav-brand-text">DENOMATH</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" class="nav-link active" onclick="showPage('beranda'); return false;" data-page="beranda">
+      <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M4 11.5 12 4l8 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9h12v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nav-label">Beranda</span>
+    </a>
+    <a href="#" class="nav-link" id="navProfil">
+      <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.8"/><path d="M5 19.5c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="nav-label" id="navNama">Siswa</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ================================================================
+     PAGE: BERANDA
+================================================================ -->
+<div id="page-beranda" class="page active">
+  <div class="floating-bills" aria-hidden="true">
+    <span class="bill b1"><svg viewBox="0 0 48 48" fill="none"><rect x="3" y="14" width="42" height="20" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2"/></svg></span>
+    <span class="bill b2"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="12" stroke="currentColor" stroke-width="1.6"/></svg></span>
+    <span class="bill b3"><svg viewBox="0 0 48 48" fill="none"><rect x="3" y="14" width="42" height="20" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2"/></svg></span>
+    <span class="bill b4"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="2"/></svg></span>
+    <span class="bill b5"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="2"/><path d="M24 16v16M19 19.5h7.5a3 3 0 0 1 0 6h-6a3 3 0 0 0 0 6H29" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span class="bill b6"><svg viewBox="0 0 48 48" fill="none"><rect x="3" y="14" width="42" height="20" rx="3" stroke="currentColor" stroke-width="2"/></svg></span>
+  </div>
+
+  <section class="hero-clean">
+    <div class="hero-clean-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Media Pembelajaran Matematika
+      </div>
+      <h1 class="hero-clean-title">DENO<span class="title-accent">MATH</span></h1>
+      <p class="hero-clean-sub">Belajar Redenominasi Rupiah &amp; Penyajian Data<br>dengan cara yang seru dan interaktif!</p>
+      <div id="sambutanSiswa" class="sambutan" style="display:none">
+        <div class="sambutan-avatar">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.8"/><path d="M5 19.5c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <span>Halo, <strong id="namaDisplay"></strong>! Kelas <strong id="kelasDisplay"></strong> – Absen <strong id="absenDisplay"></strong></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="menu-section">
+    <div class="menu-section-label">Menu Utama</div>
+    <div class="menu-grid-2x2">
+
+      <div class="menu-card card-belajar" onclick="showPage('belajar')">
+        <div class="card-glow"></div>
+        <div class="card-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-tag">Challenge Based Learning</div>
+          <h3>Ayo Mulai Belajar!</h3>
+          <p>Redenominasi &amp; Penyajian Data interaktif</p>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="menu-card card-kalkulator" onclick="showPage('kalkulator')">
+        <div class="card-glow"></div>
+        <div class="card-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><line x1="8" y1="7.5" x2="16" y2="7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="12" x2="16" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="16" x2="8" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="16" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="16" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-tag">Alat Bantu</div>
+          <h3>Kalkulator Redenominasi</h3>
+          <p>Hitung konversi rupiah otomatis</p>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="menu-card card-evaluasi" onclick="showPage('evaluasi')">
+        <div class="card-glow"></div>
+        <div class="card-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M6 3h9l3 3v15H6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11.5l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-tag">20 Soal Pilihan Ganda</div>
+          <h3>Evaluasi</h3>
+          <p>Uji pemahamanmu sekarang</p>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="menu-card card-petunjuk" onclick="showPage('petunjuk')">
+        <div class="card-glow"></div>
+        <div class="card-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 16v.1M12 13c0-2 2.2-2.2 2.2-4A2.2 2.2 0 0 0 12 7a2.2 2.2 0 0 0-2.2 2.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-tag">Panduan</div>
+          <h3>Petunjuk Penggunaan</h3>
+          <p>Cara menggunakan DENOMATH</p>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="menu-card card-diagram" onclick="showPage('diagram')">
+        <div class="card-glow"></div>
+        <div class="card-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M4 20V10M10 20V4M16 20v-7M20 20H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-tag">Alat Bantu</div>
+          <h3>Buat Diagram</h3>
+          <p>Buat diagram batang &amp; lingkaran dari datamu sendiri</p>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RUMUS CEPAT -->
+  <div class="quick-formula">
+    <div class="qf-inner">
+      <div class="qf-label">Rumus Redenominasi</div>
+      <div class="qf-formula">
+        <span class="qf-text">Rupiah Baru</span>
+        <span class="qf-eq">=</span>
+        <span class="qf-text">Rupiah Lama</span>
+        <span class="qf-op">÷</span>
+        <span class="qf-num">1.000</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: BELAJAR (CBL)
+================================================================ -->
+<div id="page-belajar" class="page">
+  <section class="page-hero page-belajar-hero">
+    <button class="btn-back-page" onclick="showPage('beranda')">
+      <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M12 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Beranda
+    </button>
+    <h1>Ayo Mulai Belajar!</h1>
+    <p>Challenge Based Learning – Redenominasi Rupiah &amp; Penyajian Data</p>
+  </section>
+
+  <div id="belajarStep1" class="belajar-step active">
+    <div class="cptp-container">
+      <div class="cptp-header">
+        <div class="cptp-badge">📋 Sebelum Memulai</div>
+        <h2 class="cptp-title">Capaian &amp; Tujuan Pembelajaran</h2>
+        <p class="cptp-sub">Pahami dulu apa yang akan kamu capai dalam pembelajaran ini!</p>
+      </div>
+      <div class="cptp-grid">
+        <div class="cptp-card cptp-cp">
+          <div class="cptp-card-header">
+            <span class="cptp-card-icon">🎯</span>
+            <div>
+              <h3>Capaian Pembelajaran (CP)</h3>
+              <p>Kompetensi akhir yang diharapkan</p>
+            </div>
+          </div>
+          <div class="cptp-card-body">
+            <p>Peserta didik mampu <strong>memahami konsep redenominasi rupiah</strong> dan menyajikan data konversi harga dalam berbagai bentuk penyajian data (tabel, diagram batang, diagram garis, dan diagram lingkaran) sebagai alat untuk menganalisis dampak redenominasi dalam kehidupan sehari-hari.</p>
+          </div>
+        </div>
+        <div class="cptp-card cptp-tp">
+          <div class="cptp-card-header">
+            <span class="cptp-card-icon">✅</span>
+            <div>
+              <h3>Tujuan Pembelajaran (TP)</h3>
+              <p>Yang akan kamu kuasai setelah belajar</p>
+            </div>
+          </div>
+          <div class="cptp-card-body">
+            <ol class="cptp-list">
+              <li>Menjelaskan pengertian redenominasi dan perbedaannya dengan sanering</li>
+              <li>Mengkonversi nilai uang lama ke uang baru dengan rumus Harga Baru = Harga Lama ÷ 1.000</li>
+              <li>Menyajikan data harga redenominasi dalam bentuk tabel yang sistematis</li>
+              <li>Membuat dan membaca diagram batang dari data harga redenominasi</li>
+              <li>Menganalisis perubahan nominal uang tanpa perubahan daya beli</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="cptp-info-row">
+        <div class="cptp-info-item"><span class="cptp-info-icon">📚</span><div><strong>Materi</strong><br>Redenominasi &amp; Penyajian Data</div></div>
+        <div class="cptp-info-item"><span class="cptp-info-icon">⏱️</span><div><strong>Durasi</strong><br>2 × 40 menit</div></div>
+        <div class="cptp-info-item"><span class="cptp-info-icon">🏫</span><div><strong>Metode</strong><br>Challenge Based Learning</div></div>
+        <div class="cptp-info-item"><span class="cptp-info-icon">👥</span><div><strong>Mode</strong><br>Individual / Kelompok</div></div>
+      </div>
+      <div class="cptp-btn-wrap">
+        <button class="btn-lanjut" onclick="belajarNextStep()">Lanjut Pilih Kegiatan Belajar <svg viewBox="0 0 20 20" fill="none" width="16" height="16" style="vertical-align:middle;margin-left:4px"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="belajarStep2" class="belajar-step" style="display:none">
+    <div class="progress-bar-wrap">
+      <div class="progress-info">
+        <span>Progress Kamu</span>
+        <span id="progressLabel">0 / 2 KB selesai</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="kb-grid">
+      <div class="kb-card" id="kb1card" onclick="bukaKB(1)">
+        <div class="kb-ribbon">KB 1</div>
+        <div class="kb-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8"/><line x1="15.3" y1="15.3" x2="20.5" y2="20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div class="kb-title">Menemukan Masalah</div>
+        <div class="kb-desc">Pak Budi punya uang Rp 75.000. Setelah redenominasi, jadi berapa? Sajikan dalam tabel &amp; diagram!</div>
+        <div class="kb-tag">Penyajian Data: Tabel &amp; Diagram Batang</div>
+        <div class="kb-status" id="kb1status">Mulai</div>
+      </div>
+      <div class="kb-card" id="kb2card" onclick="bukaKB(2)">
+        <div class="kb-ribbon">KB 2</div>
+        <div class="kb-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 8h14l-1.5 10a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 8a3.5 3.5 0 0 1 7 0" stroke="currentColor" stroke-width="1.7"/></svg></div>
+        <div class="kb-title">Investigasi di Pasar</div>
+        <div class="kb-desc">Bu Sari belanja di pasar pakai uang baru. Bantu catat belanjaan dan buat diagram batang!</div>
+        <div class="kb-tag">Penyajian Data: Diagram Batang</div>
+        <div class="kb-status" id="kb2status">Mulai</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:8px;padding-bottom:32px">
+      <button class="btn-back" onclick="belajarPrevStep()">◀ Kembali ke CP &amp; TP</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: KALKULATOR
+================================================================ -->
+<div id="page-kalkulator" class="page">
+  <section class="page-hero page-kalkulator-hero">
+    <button class="btn-back-page" onclick="showPage('beranda')">
+      <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M12 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Beranda
+    </button>
+    <h1>Kalkulator Redenominasi</h1>
+    <p>Konversikan nilai rupiah lama ke rupiah baru secara otomatis</p>
+  </section>
+  <div class="kalkulator-container">
+    <div class="kalc-card">
+      <div class="kalc-mode-switch">
+        <button class="kalc-mode-btn active" id="modeBtn1" onclick="setKalcMode('lama-ke-baru')">Lama → Baru</button>
+        <button class="kalc-mode-btn" id="modeBtn2" onclick="setKalcMode('baru-ke-lama')">Baru → Lama</button>
+      </div>
+      <div class="kalc-input-wrap">
+        <label class="kalc-label" id="kalcInputLabel">Masukkan Rupiah Lama</label>
+        <div class="kalc-input-group">
+          <span class="kalc-prefix">Rp</span>
+          <input type="number" id="kalcInput" class="kalc-input" placeholder="Contoh: 75000" oninput="hitungKalkulator()">
+        </div>
+        <div class="kalc-hint" id="kalcHint">Contoh: Rp 75.000 (lama) → Rp 75 (baru)</div>
+      </div>
+      <div class="kalc-result" id="kalcResult" style="display:none">
+        <div class="kalc-result-arrow">↓</div>
+        <div class="kalc-result-label" id="kalcResultLabel">Rupiah Baru</div>
+        <div class="kalc-result-nilai" id="kalcResultNilai">Rp 0</div>
+        <div class="kalc-result-note" id="kalcResultNote"></div>
+      </div>
+      <button class="btn-kalc-reset" onclick="resetKalkulator()">Reset</button>
+    </div>
+    <div class="kalc-ref-card">
+      <h3>Tabel Referensi Cepat</h3>
+      <table class="ref-table">
+        <thead><tr><th>Rupiah Lama</th><th>÷ 1.000</th><th>Rupiah Baru</th></tr></thead>
+        <tbody>
+          <tr><td>Rp 1.000</td><td>÷ 1.000</td><td class="ref-baru">Rp 1</td></tr>
+          <tr><td>Rp 5.000</td><td>÷ 1.000</td><td class="ref-baru">Rp 5</td></tr>
+          <tr><td>Rp 10.000</td><td>÷ 1.000</td><td class="ref-baru">Rp 10</td></tr>
+          <tr><td>Rp 50.000</td><td>÷ 1.000</td><td class="ref-baru">Rp 50</td></tr>
+          <tr><td>Rp 100.000</td><td>÷ 1.000</td><td class="ref-baru">Rp 100</td></tr>
+          <tr><td>Rp 500.000</td><td>÷ 1.000</td><td class="ref-baru">Rp 500</td></tr>
+          <tr><td>Rp 1.000.000</td><td>÷ 1.000</td><td class="ref-baru">Rp 1.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kalc-rumus-box">
+      <div class="kalc-rumus-title">Rumus Redenominasi</div>
+      <div class="kalc-rumus-formula">Rupiah Baru = Rupiah Lama <span>÷</span> 1.000</div>
+      <div class="kalc-rumus-note">Nilai daya beli tetap sama — hanya angkanya yang disederhanakan</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: BUAT DIAGRAM
+================================================================ -->
+<div id="page-diagram" class="page">
+  <section class="page-hero page-diagram-hero">
+    <button class="btn-back-page" onclick="showPage('beranda')">
+      <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M12 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Beranda
+    </button>
+    <h1>Buat Diagram</h1>
+    <p>Masukkan datamu sendiri, lalu sajikan dalam diagram batang atau lingkaran</p>
+  </section>
+  <div class="diagram-container">
+    <div class="diagram-card">
+      <div class="kalc-mode-switch">
+        <button class="kalc-mode-btn active" id="diagTypeBtnBatang" onclick="setTipeDiagram('batang')">📊 Diagram Batang</button>
+        <button class="kalc-mode-btn" id="diagTypeBtnLingkaran" onclick="setTipeDiagram('lingkaran')">🥧 Diagram Lingkaran</button>
+      </div>
+
+      <div class="input-group" style="margin-bottom:18px">
+        <label>Judul Diagram (opsional)</label>
+        <input type="text" id="diagJudul" placeholder="Contoh: Harga Sayur Pak Budi (Rupiah Baru)">
+      </div>
+
+      <label class="kalc-label" style="margin-bottom:10px">Data Kategori &amp; Nilai</label>
+      <div class="diagram-rows" id="diagramRows">
+        <div class="diagram-row">
+          <input type="text" class="diag-label-input" placeholder="Nama kategori (contoh: Bayam)">
+          <input type="number" class="diag-value-input" placeholder="Nilai">
+          <button type="button" class="btn-diagram-hapus" onclick="hapusBarisDiagram(this)" title="Hapus baris">✕</button>
+        </div>
+        <div class="diagram-row">
+          <input type="text" class="diag-label-input" placeholder="Nama kategori (contoh: Wortel)">
+          <input type="number" class="diag-value-input" placeholder="Nilai">
+          <button type="button" class="btn-diagram-hapus" onclick="hapusBarisDiagram(this)" title="Hapus baris">✕</button>
+        </div>
+        <div class="diagram-row">
+          <input type="text" class="diag-label-input" placeholder="Nama kategori (contoh: Tomat)">
+          <input type="number" class="diag-value-input" placeholder="Nilai">
+          <button type="button" class="btn-diagram-hapus" onclick="hapusBarisDiagram(this)" title="Hapus baris">✕</button>
+        </div>
+      </div>
+      <button type="button" class="btn-diagram-tambah" onclick="tambahBarisDiagram()">+ Tambah Kategori</button>
+
+      <div class="diagram-actions">
+        <button class="btn-eval-start" style="flex:1" onclick="buatDiagramUser()">📊 Buat Diagram</button>
+        <button class="btn-kalc-reset" style="flex:0 0 auto; width:auto; padding:10px 20px; margin-top:0" onclick="resetDiagramBuilder()">Reset</button>
+      </div>
+    </div>
+
+    <div class="diagram-card diagram-output-card" id="diagramOutputCard" style="display:none">
+      <h3 id="diagramOutputTitle">Hasil Diagram</h3>
+      <div class="diagram-canvas-wrap">
+        <canvas id="diagramCanvas" width="560" height="320"></canvas>
+      </div>
+      <div class="pie-legend" id="diagramPieLegend" style="display:none; margin-top:14px"></div>
+      <button class="btn-kalc-reset" id="diagramUnduhBtn" onclick="unduhDiagram()">⬇️ Unduh Diagram sebagai Gambar</button>
+    </div>
+
+    <div class="kalc-rumus-box">
+      <div class="kalc-rumus-title">Tips Memilih Diagram</div>
+      <div class="kalc-rumus-note" style="text-align:left">
+        📊 <strong>Diagram Batang</strong> — cocok untuk membandingkan nilai antar kategori.<br>
+        🥧 <strong>Diagram Lingkaran</strong> — cocok untuk menunjukkan proporsi/persentase bagian dari keseluruhan data.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: EVALUASI
+================================================================ -->
+<div id="page-evaluasi" class="page">
+  <section class="page-hero page-evaluasi-hero">
+    <button class="btn-back-page" onclick="showPage('beranda')">
+      <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M12 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Beranda
+    </button>
+    <h1>Evaluasi</h1>
+    <p>Uji pemahamanmu tentang Redenominasi Rupiah &amp; Penyajian Data</p>
+  </section>
+  <div class="evaluasi-container">
+    <div id="evalStart" class="eval-screen">
+      <div class="eval-start-card">
+        <div class="eval-start-icon"><svg viewBox="0 0 24 24" fill="none" width="40" height="40"><path d="M6 3h9l3 3v15H6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11.5l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2>Siap Evaluasi?</h2>
+        <p>Kamu akan mengerjakan <strong>20 soal pilihan ganda</strong> tentang Redenominasi Rupiah &amp; Penyajian Data.</p>
+        <ul class="eval-info-list">
+          <li>📝 20 soal pilihan ganda</li>
+          <li>⏰ Tidak ada batas waktu</li>
+          <li>🔒 Jawaban TIDAK langsung ditampilkan</li>
+          <li>📊 Pembahasan lengkap tersedia di akhir</li>
+          <li>💾 Hasilmu tersimpan otomatis ke rekap guru</li>
+        </ul>
+        <button class="btn-eval-start" onclick="mulaiEvaluasi()">Mulai Evaluasi →</button>
+      </div>
+    </div>
+    <div id="evalQuiz" class="eval-screen" style="display:none">
+      <div class="eval-progress-bar"><div class="eval-progress-fill" id="evalProgressFill" style="width:0%"></div></div>
+      <div class="eval-header">
+        <span class="eval-soal-num" id="evalSoalNum">Soal 1 / 20</span>
+        <span class="eval-skor-live" id="evalSkorLive">Soal dijawab: 0</span>
+      </div>
+      <div class="eval-card">
+        <div class="eval-visual-area" id="evalVisual" style="display:none"></div>
+        <div class="eval-question" id="evalQuestion"></div>
+        <div class="eval-options" id="evalOptions"></div>
+        <div class="eval-selected-info" id="evalSelectedInfo"></div>
+        <div style="text-align:right; margin-top:16px">
+          <button class="btn-eval-next" id="btnEvalNext" onclick="soalBerikutnya()" style="display:none">Soal Berikutnya →</button>
+        </div>
+      </div>
+    </div>
+    <div id="evalResult" class="eval-screen" style="display:none">
+      <div class="eval-result-card">
+        <div class="eval-result-icon" id="evalResultIcon">🏆</div>
+        <h2 class="eval-result-judul" id="evalResultJudul">Luar Biasa!</h2>
+        <div class="eval-score-wrap">
+          <div class="eval-score-num" id="evalScoreNum">0</div>
+          <div class="eval-score-max">dari <span class="eval-score-max">20</span></div>
+        </div>
+        <div class="eval-grade-badge" id="evalGradeBadge">A</div>
+        <p class="eval-result-msg" id="evalResultMsg"></p>
+        <div id="evalSendStatus"></div>
+        <div class="eval-result-btns">
+          <button class="btn-back" onclick="tampilkanPembahasan()">📖 Lihat Pembahasan</button>
+          <button class="btn-lanjut" onclick="ulangiEvaluasi()">🔄 Ulangi Evaluasi</button>
+        </div>
+      </div>
+    </div>
+    <div id="evalPembahasan" class="eval-screen" style="display:none">
+      <div class="pembahasan-header">
+        <h2>📖 Pembahasan Lengkap</h2>
+        <div class="pembahasan-skor-info" id="pembahasanSkorInfo"></div>
+      </div>
+      <div class="pembahasan-list" id="pembahasanList"></div>
+      <div style="text-align:center; padding:24px 0 40px">
+        <button class="btn-lanjut" onclick="ulangiEvaluasi()">🔄 Ulangi Evaluasi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: PETUNJUK
+================================================================ -->
+<div id="page-petunjuk" class="page">
+  <section class="page-hero page-petunjuk-hero">
+    <button class="btn-back-page" onclick="showPage('beranda')">
+      <svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M12 15l-5-5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Beranda
+    </button>
+    <h1>Petunjuk Penggunaan</h1>
+    <p>Panduan lengkap cara menggunakan DENOMATH</p>
+  </section>
+  <div class="petunjuk-container">
+    <div class="petunjuk-intro">
+      <span style="font-size:2rem">👋</span>
+      <div>
+        <strong>Selamat Datang di DENOMATH!</strong>
+        <p style="font-size:0.88rem; color:rgba(255,255,255,0.65); margin-top:4px; line-height:1.5">DENOMATH adalah media pembelajaran interaktif yang dirancang khusus untuk membantu kamu memahami konsep redenominasi rupiah dan penyajian data secara menyenangkan.</p>
+      </div>
+    </div>
+    <div class="petunjuk-grid">
+      <div class="petunjuk-card"><div class="petunjuk-num">1</div><span class="petunjuk-icon">🎬</span><h3>Tonton Intro</h3><p>Setelah login, tonton pengenalan singkat tentang redenominasi oleh Pak Rupi &amp; Uni Deno.</p></div>
+      <div class="petunjuk-card"><div class="petunjuk-num">2</div><span class="petunjuk-icon">📚</span><h3>Mulai Belajar</h3><p>Kerjakan 2 Kegiatan Belajar (KB). Kamu bisa membuka KB 1 dan KB 2 secara bebas, urutan mana saja.</p></div>
+      <div class="petunjuk-card"><div class="petunjuk-num">3</div><span class="petunjuk-icon">🧮</span><h3>Gunakan Kalkulator</h3><p>Coba kalkulator untuk berlatih konversi rupiah lama ke rupiah baru dengan mudah.</p></div>
+      <div class="petunjuk-card"><div class="petunjuk-num">4</div><span class="petunjuk-icon">📝</span><h3>Ikuti Evaluasi</h3><p>Kerjakan 20 soal pilihan ganda. Jawaban dan pembahasan tampil setelah selesai semua.</p></div>
+      <div class="petunjuk-card"><div class="petunjuk-num">5</div><span class="petunjuk-icon">🤖</span><h3>Tanya AI Asisten</h3><p>Gunakan tombol AI di pojok kanan bawah untuk bertanya tentang materi. Bisa pakai suara!</p></div>
+      <div class="petunjuk-card"><div class="petunjuk-num">6</div><span class="petunjuk-icon">💾</span><h3>Hasil Tersimpan</h3><p>Hasil evaluasimu tersimpan otomatis ke rekap guru melalui Google Sheets.</p></div>
+    </div>
+    <div class="tips-box">
+      <h3>💡 Tips Belajar</h3>
+      <ul>
+        <li>✅ Gunakan AI Asisten bila ada konsep yang kurang dipahami — dia bisa menjelaskan sambil bersuara!</li>
+        <li>✅ Selesaikan KB 1 sebelum membuka KB 2 agar pemahaman terstruktur dengan baik</li>
+        <li>✅ Isi refleksi dengan sungguh-sungguh agar nilaimu lebih tinggi</li>
+        <li>✅ Gunakan kalkulator untuk berlatih konversi sebelum evaluasi</li>
+        <li>✅ Baca pembahasan evaluasi dengan seksama untuk memahami soal yang salah</li>
+      </ul>
+    </div>
+    <div class="petunjuk-btns">
+      <button class="btn-lanjut" onclick="showPage('belajar')">📚 Mulai Belajar</button>
+      <button class="btn-back" onclick="showPage('beranda')">🏠 Kembali ke Beranda</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL KB 1
+================================================================ -->
+<div id="modalKB1" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-kb-badge">KB 1</div>
+        <h2 class="modal-title">Menemukan Masalah</h2>
+        <p class="modal-subtitle">Tabel &amp; Diagram Batang Redenominasi</p>
+      </div>
+      <button class="modal-close" onclick="tutupModal(1)">
+        <svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M5 5l10 10M15 5l-10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="cbl-tabs" id="cblTabs1">
+        <button class="cbl-tab active" id="cblTab1-1" onclick="gantiCBLTab(1,1)">Big Idea</button>
+        <button class="cbl-tab" id="cblTab1-2" onclick="gantiCBLTab(1,2)">Essential Q</button>
+        <button class="cbl-tab" id="cblTab1-3" onclick="gantiCBLTab(1,3)">Challenge</button>
+        <button class="cbl-tab" id="cblTab1-4" onclick="gantiCBLTab(1,4)">Resources</button>
+        <button class="cbl-tab" id="cblTab1-5" onclick="gantiCBLTab(1,5)">Context</button>
+        <button class="cbl-tab" id="cblTab1-6" onclick="gantiCBLTab(1,6)">Activities</button>
+        <button class="cbl-tab" id="cblTab1-7" onclick="gantiCBLTab(1,7)">Solution</button>
+        <button class="cbl-tab" id="cblTab1-8" onclick="gantiCBLTab(1,8)">Action</button>
+        <button class="cbl-tab" id="cblTab1-9" onclick="gantiCBLTab(1,9)">Asesmen</button>
+      </div>
+
+      <!-- KB1 Content tabs (same as original, condensed) -->
+      <div class="cbl-content active" id="cblContent1-1">
+        <div class="cbl-section-header cbl-bigidea"><span>💡</span> Big Idea</div>
+        <div class="cbl-text-card">
+          <p>Dalam kehidupan sehari-hari, kita sering menghadapi angka-angka besar saat bertransaksi. Redenominasi rupiah adalah cara pemerintah untuk menyederhanakan angka tersebut agar lebih mudah digunakan — tanpa mengubah nilai sesungguhnya.</p>
+          <div class="cbl-highlight-box"><span class="cbl-hl-icon">🌟</span><p>Redenominasi bukan pengurangan nilai uang. Rp 75.000 yang menjadi Rp 75 tetap bisa membeli barang yang sama!</p></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" disabled>◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,2)">Lanjut: Essential Q ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-2">
+        <div class="cbl-section-header cbl-essentialq"><span>❓</span> Essential Question</div>
+        <div class="cbl-text-card">
+          <h4>Pertanyaan Mendasar:</h4>
+          <div class="cbl-eq-list">
+            <div class="cbl-eq-item"><span class="cbl-eq-num">1</span><p>Mengapa angka pada mata uang perlu disederhanakan dalam kehidupan modern?</p></div>
+            <div class="cbl-eq-item"><span class="cbl-eq-num">2</span><p>Bagaimana cara menyajikan data perubahan harga agar mudah dipahami masyarakat?</p></div>
+            <div class="cbl-eq-item"><span class="cbl-eq-num">3</span><p>Apakah redenominasi mengubah kemampuan beli seseorang?</p></div>
+          </div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(1,1)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,3)">Lanjut: Challenge ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-3">
+        <div class="cbl-section-header cbl-challenge"><span>🎯</span> Challenge</div>
+        <div class="cbl-text-card">
+          <div class="cbl-challenge-story">
+            <p>Pak Budi memiliki <strong>Rp 75.000</strong> di dompetnya hari ini. Esok hari, pemerintah memberlakukan kebijakan redenominasi rupiah dengan faktor pembagi <strong>1.000</strong>.</p>
+            <p>Pak Budi bingung: apakah uangnya masih cukup untuk membeli sembako seperti biasa?</p>
+          </div>
+          <div class="cbl-highlight-box"><span class="cbl-hl-icon">🏆</span><p><strong>Tantanganmu:</strong> Bantu Pak Budi memahami dengan membuat tabel konversi harga 4 barang dan diagram batang perbandingannya!</p></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(1,2)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,4)">Lanjut: Resources ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-4">
+        <div class="cbl-section-header cbl-resources"><span>📖</span> Resources</div>
+        <div class="cbl-resources-grid">
+          <div class="cbl-res-item"><div class="cbl-res-icon">📐</div><div><strong>Rumus</strong><br>Harga Baru = Harga Lama ÷ 1.000</div></div>
+          <div class="cbl-res-item"><div class="cbl-res-icon">💡</div><div><strong>Konsep</strong><br>Redenominasi ≠ sanering (nilai tidak berkurang)</div></div>
+          <div class="cbl-res-item"><div class="cbl-res-icon">📊</div><div><strong>Alat</strong><br>Tabel data &amp; diagram batang interaktif</div></div>
+          <div class="cbl-res-item"><div class="cbl-res-icon">🧮</div><div><strong>Kalkulator</strong><br>Tersedia di menu Kalkulator Redenominasi</div></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(1,3)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,5)">Lanjut: Context ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-5">
+        <div class="cbl-section-header cbl-context"><span>🌍</span> Context</div>
+        <div class="cbl-text-card">
+          <h4>Konteks Nyata: Redenominasi di Dunia</h4>
+          <p>Banyak negara telah berhasil melakukan redenominasi, seperti Turki (2005) yang menghapus 6 nol dari liranya, serta Rumania (2005) yang membagi 4 nol. Nilai daya beli masyarakat tidak berubah — hanya angka yang disederhanakan.</p>
+          <div class="cbl-context-examples">
+            <div class="cbl-ctx-item"><strong>🇹🇷 Turki 2005</strong><p>1.000.000 Lira Lama = 1 Lira Baru</p></div>
+            <div class="cbl-ctx-item"><strong>🇷🇴 Rumania 2005</strong><p>10.000 Lei Lama = 1 Leu Baru</p></div>
+            <div class="cbl-ctx-item"><strong>🇮🇩 Indonesia (Rencana)</strong><p>1.000 Rupiah Lama = 1 Rupiah Baru</p></div>
+          </div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(1,4)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,6)">Lanjut: Activities ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-6">
+        <div class="cbl-section-header cbl-activities"><span>🔬</span> Guiding Activities</div>
+        <div class="challenge-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>📋 Lengkapi Tabel Konversi Harga Pak Budi</h4>
+            <table class="data-table">
+              <thead><tr><th>Barang</th><th>Harga Lama</th><th>Harga Baru (isi!)</th></tr></thead>
+              <tbody>
+                <tr><td>🛒 Sembako A</td><td>Rp 15.000</td><td><input type="number" class="cell-input" id="harga1" placeholder="..."></td></tr>
+                <tr><td>🛒 Sembako B</td><td>Rp 25.000</td><td><input type="number" class="cell-input" id="harga2" placeholder="..."></td></tr>
+                <tr><td>🛒 Sembako C</td><td>Rp 50.000</td><td><input type="number" class="cell-input" id="harga3" placeholder="..."></td></tr>
+                <tr><td>🛒 Sembako D</td><td>Rp 75.000</td><td><input type="number" class="cell-input" id="harga4" placeholder="..."></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="challenge-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>📊 Diagram Batang Interaktif</h4>
+            <div class="diagram-batang" id="diagramKB1">
+              <div class="batang-wrap"><div class="batang" data-target="15" data-label="Sembako A" style="height:0;background:linear-gradient(180deg,#4a9eff,#1a6bcc)"></div><span>A</span></div>
+              <div class="batang-wrap"><div class="batang" data-target="25" data-label="Sembako B" style="height:0;background:linear-gradient(180deg,#f5c518,#c49a0a)"></div><span>B</span></div>
+              <div class="batang-wrap"><div class="batang" data-target="50" data-label="Sembako C" style="height:0;background:linear-gradient(180deg,#22c55e,#16a34a)"></div><span>C</span></div>
+              <div class="batang-wrap"><div class="batang" data-target="75" data-label="Sembako D" style="height:0;background:linear-gradient(180deg,#a855f7,#7c3aed)"></div><span>D</span></div>
+            </div>
+            <p style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-top:8px;text-align:center">Klik batang untuk melihat detail harga</p>
+          </div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(1,5)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,7)">Lanjut: Solution ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-7">
+        <div class="cbl-section-header cbl-solution"><span>💡</span> Solution</div>
+        <div class="cbl-text-card">
+          <h4>Solusi dari Tantangan:</h4>
+          <div class="cbl-solution-table">
+            <table class="data-table">
+              <thead><tr><th>Barang</th><th>Harga Lama</th><th>Harga Baru</th></tr></thead>
+              <tbody>
+                <tr><td>🛒 Sembako A</td><td>Rp 15.000</td><td>Rp 15</td></tr>
+                <tr><td>🛒 Sembako B</td><td>Rp 25.000</td><td>Rp 25</td></tr>
+                <tr><td>🛒 Sembako C</td><td>Rp 50.000</td><td>Rp 50</td></tr>
+                <tr><td>🛒 Sembako D</td><td>Rp 75.000</td><td>Rp 75</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="cbl-highlight-box"><span class="cbl-hl-icon">🏆</span><p>Pak Budi tetap bisa membeli semua barang! Dengan Rp 75 (baru), daya belinya sama dengan Rp 75.000 (lama). Redenominasi hanya menyederhanakan angka!</p></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(1,6)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,8)">Lanjut: Action ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-8">
+        <div class="cbl-section-header cbl-action"><span>🚀</span> Action</div>
+        <div class="challenge-step">
+          <div class="step-num">✍️</div>
+          <div class="step-content">
+            <h4>Refleksi &amp; Tindakan</h4>
+            <textarea class="refleksi-input" id="refleksiKB1" placeholder="Apa yang kamu pelajari dari KB 1 ini? Jelaskan apa yang terjadi pada uang Pak Budi setelah redenominasi, dan apakah daya belinya berubah. Berikan alasanmu!"></textarea>
+          </div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(1,7)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(1,9)">Lanjut: Asesmen ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent1-9">
+        <div class="cbl-section-header cbl-asesmen"><span>📊</span> Asesmen</div>
+        <div class="cbl-asesmen-grid">
+          <div class="cbl-asesmen-card">
+            <div class="cbl-as-title">Kriteria Penilaian</div>
+            <div class="cbl-as-item"><span class="cbl-as-num">1</span><div><strong>Ketepatan Konversi (30%)</strong><br>Semua harga baru dihitung benar</div></div>
+            <div class="cbl-as-item"><span class="cbl-as-num">2</span><div><strong>Diagram Batang (40%)</strong><br>Diagram dibuat dan dapat dibaca</div></div>
+            <div class="cbl-as-item"><span class="cbl-as-num">3</span><div><strong>Refleksi &amp; Analisis (30%)</strong><br>Menjelaskan konsep redenominasi</div></div>
+          </div>
+          <div class="cbl-asesmen-card">
+            <div class="cbl-as-title">Rubrik Penilaian</div>
+            <table class="cbl-rubrik-table">
+              <thead><tr><th>Skor</th><th>Keterangan</th></tr></thead>
+              <tbody>
+                <tr><td>4</td><td>Semua benar, diagram tepat, analisis mendalam</td></tr>
+                <tr><td>3</td><td>Sebagian besar benar, diagram cukup baik</td></tr>
+                <tr><td>2</td><td>Setengah benar, diagram kurang tepat</td></tr>
+                <tr><td>1</td><td>Sebagian kecil benar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button class="btn-selesai" onclick="selesaikanKB(1)">✅ Selesaikan KB 1</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL KB 2 -->
+<div id="modalKB2" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-kb-badge kb2-badge">KB 2</div>
+        <h2 class="modal-title">Investigasi di Pasar</h2>
+        <p class="modal-subtitle">Diagram Batang Belanjaan Bu Sari</p>
+      </div>
+      <button class="modal-close" onclick="tutupModal(2)">
+        <svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M5 5l10 10M15 5l-10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="cbl-tabs" id="cblTabs2">
+        <button class="cbl-tab active" id="cblTab2-1" onclick="gantiCBLTab(2,1)">Big Idea</button>
+        <button class="cbl-tab" id="cblTab2-2" onclick="gantiCBLTab(2,2)">Essential Q</button>
+        <button class="cbl-tab" id="cblTab2-3" onclick="gantiCBLTab(2,3)">Challenge</button>
+        <button class="cbl-tab" id="cblTab2-4" onclick="gantiCBLTab(2,4)">Resources</button>
+        <button class="cbl-tab" id="cblTab2-5" onclick="gantiCBLTab(2,5)">Context</button>
+        <button class="cbl-tab" id="cblTab2-6" onclick="gantiCBLTab(2,6)">Activities</button>
+        <button class="cbl-tab" id="cblTab2-7" onclick="gantiCBLTab(2,7)">Solution</button>
+        <button class="cbl-tab" id="cblTab2-8" onclick="gantiCBLTab(2,8)">Action</button>
+        <button class="cbl-tab" id="cblTab2-9" onclick="gantiCBLTab(2,9)">Asesmen</button>
+      </div>
+
+      <div class="cbl-content active" id="cblContent2-1">
+        <div class="cbl-section-header cbl-bigidea"><span>💡</span> Big Idea</div>
+        <div class="cbl-text-card">
+          <p>Data harga belanjaan sehari-hari dapat disajikan dalam berbagai bentuk. Salah satu yang paling efektif untuk <strong>membandingkan</strong> antar kategori adalah <strong>diagram batang</strong>. Setelah redenominasi, angkanya berubah tapi polanya tetap sama!</p>
+          <div class="cbl-highlight-box"><span class="cbl-hl-icon">🌟</span><p>Diagram batang membantu kita "melihat" data secara visual — batang lebih tinggi berarti nilai lebih besar!</p></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" disabled>◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,2)">Lanjut: Essential Q ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-2">
+        <div class="cbl-section-header cbl-essentialq"><span>❓</span> Essential Question</div>
+        <div class="cbl-text-card">
+          <div class="cbl-eq-list">
+            <div class="cbl-eq-item"><span class="cbl-eq-num">1</span><p>Bagaimana cara membuat diagram batang yang mudah dibaca?</p></div>
+            <div class="cbl-eq-item"><span class="cbl-eq-num">2</span><p>Apakah urutan barang termahal berubah setelah redenominasi?</p></div>
+            <div class="cbl-eq-item"><span class="cbl-eq-num">3</span><p>Apa manfaat menyajikan data belanja dalam bentuk diagram?</p></div>
+          </div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(2,1)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,3)">Lanjut: Challenge ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-3">
+        <div class="cbl-section-header cbl-challenge"><span>🎯</span> Challenge</div>
+        <div class="cbl-text-card">
+          <div class="cbl-challenge-story">
+            <p>Bu Sari pergi ke pasar untuk membeli berbagai kebutuhan dapur. Setelah redenominasi diberlakukan, harga semua barang di pasar sudah menggunakan <strong>rupiah baru</strong>.</p>
+            <p>Bu Sari membutuhkan bantuanmu untuk mencatat harga belanjaan dan menyajikannya dalam diagram batang!</p>
+          </div>
+          <div class="cbl-highlight-box"><span class="cbl-hl-icon">🏆</span><p><strong>Tantanganmu:</strong> Konversi harga 5 barang belanjaan Bu Sari ke rupiah baru, lalu buat diagram batangnya!</p></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(2,2)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,4)">Lanjut: Resources ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-4">
+        <div class="cbl-section-header cbl-resources"><span>📖</span> Resources</div>
+        <div class="cbl-resources-grid">
+          <div class="cbl-res-item"><div class="cbl-res-icon">📐</div><div><strong>Rumus</strong><br>Harga Baru = Harga Lama ÷ 1.000</div></div>
+          <div class="cbl-res-item"><div class="cbl-res-icon">📊</div><div><strong>Diagram Batang</strong><br>Sumbu Y = nilai, sumbu X = kategori</div></div>
+          <div class="cbl-res-item"><div class="cbl-res-icon">🔍</div><div><strong>Analisis</strong><br>Bandingkan batang tertinggi dan terendah</div></div>
+          <div class="cbl-res-item"><div class="cbl-res-icon">🤖</div><div><strong>AI Asisten</strong><br>Tanya AI jika ada konsep yang belum paham!</div></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(2,3)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,5)">Lanjut: Context ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-5">
+        <div class="cbl-section-header cbl-context"><span>🌍</span> Context</div>
+        <div class="cbl-text-card">
+          <h4>Mengapa Diagram Batang?</h4>
+          <p>Diagram batang adalah salah satu alat penyajian data paling populer karena mudah dibaca dan dibandingkan. Digunakan oleh supermarket, bank, dan pemerintah untuk menampilkan data harga secara visual.</p>
+          <div class="cbl-highlight-box"><span class="cbl-hl-icon">📊</span><p>Setelah redenominasi, diagram batang tetap menunjukkan pola yang sama — beras tetap paling mahal, minyak tetap paling murah!</p></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(2,4)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,6)">Lanjut: Activities ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-6">
+        <div class="cbl-section-header cbl-activities"><span>🔬</span> Guiding Activities</div>
+        <div class="challenge-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>🧮 Konversikan Belanjaan Bu Sari</h4>
+            <table class="data-table">
+              <thead><tr><th>Barang</th><th>Harga Lama</th><th>Harga Baru (isi!)</th></tr></thead>
+              <tbody>
+                <tr><td>🍚 Beras 5 kg</td><td>Rp 65.000</td><td><input type="number" class="cell-input" id="kb2h1" placeholder="..."></td></tr>
+                <tr><td>🥚 Telur 1 kg</td><td>Rp 28.000</td><td><input type="number" class="cell-input" id="kb2h2" placeholder="..."></td></tr>
+                <tr><td>🛢️ Minyak 1 L</td><td>Rp 15.000</td><td><input type="number" class="cell-input" id="kb2h3" placeholder="..."></td></tr>
+                <tr><td>🧂 Gula 1 kg</td><td>Rp 17.000</td><td><input type="number" class="cell-input" id="kb2h4" placeholder="..."></td></tr>
+                <tr><td>🐟 Ikan 500 g</td><td>Rp 22.000</td><td><input type="number" class="cell-input" id="kb2h5" placeholder="..."></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="challenge-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>📊 Buat Diagram Batang Interaktif</h4>
+            <p class="hint-text">Klik tombol "Buat Diagram" setelah mengisi tabel!</p>
+            <button class="btn-diagram" onclick="buatDiagramKB2()">📊 Buat Diagram Batang!</button>
+            <canvas id="canvasKB2" width="500" height="250" style="display:none; margin-top:16px; max-width:100%; background:transparent"></canvas>
+          </div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(2,5)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,7)">Lanjut: Solution ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-7">
+        <div class="cbl-section-header cbl-solution"><span>💡</span> Solution</div>
+        <div class="cbl-text-card">
+          <div class="cbl-solution-table">
+            <table class="data-table">
+              <thead><tr><th>Barang</th><th>Harga Lama</th><th>Harga Baru</th></tr></thead>
+              <tbody>
+                <tr><td>🍚 Beras 5 kg</td><td>Rp 65.000</td><td>Rp 65</td></tr>
+                <tr><td>🥚 Telur 1 kg</td><td>Rp 28.000</td><td>Rp 28</td></tr>
+                <tr><td>🛢️ Minyak 1 L</td><td>Rp 15.000</td><td>Rp 15</td></tr>
+                <tr><td>🧂 Gula 1 kg</td><td>Rp 17.000</td><td>Rp 17</td></tr>
+                <tr><td>🐟 Ikan 500 g</td><td>Rp 22.000</td><td>Rp 22</td></tr>
+                <tr><td><strong>TOTAL</strong></td><td><strong>Rp 147.000</strong></td><td><strong>Rp 147</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="cbl-highlight-box"><span class="cbl-hl-icon">🏆</span><p>Beras tetap paling mahal (Rp 65), Minyak tetap paling murah (Rp 15). Proporsi pengeluaran Bu Sari <strong>tidak berubah</strong>!</p></div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(2,6)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,8)">Lanjut: Action ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-8">
+        <div class="cbl-section-header cbl-action"><span>🚀</span> Action</div>
+        <div class="challenge-step">
+          <div class="step-num">✍️</div>
+          <div class="step-content">
+            <h4>Refleksi &amp; Tindakan</h4>
+            <textarea class="refleksi-input" id="refleksiKB2" placeholder="Barang apa yang paling mahal setelah redenominasi? Apakah urutan termahal berubah? Apa yang dapat kamu simpulkan dari diagram batang tentang pola belanja Bu Sari?"></textarea>
+          </div>
+        </div>
+        <div class="cbl-nav-btns">
+          <button class="btn-back" onclick="gantiCBLTab(2,7)">◀ Sebelumnya</button>
+          <button class="btn-cbl-next" onclick="gantiCBLTab(2,9)">Lanjut: Asesmen ▶</button>
+        </div>
+      </div>
+
+      <div class="cbl-content" id="cblContent2-9">
+        <div class="cbl-section-header cbl-asesmen"><span>📊</span> Asesmen</div>
+        <div class="cbl-asesmen-grid">
+          <div class="cbl-asesmen-card">
+            <div class="cbl-as-title">Kriteria Penilaian</div>
+            <div class="cbl-as-item"><span class="cbl-as-num">1</span><div><strong>Ketepatan Konversi (30%)</strong><br>Semua harga baru dihitung benar</div></div>
+            <div class="cbl-as-item"><span class="cbl-as-num">2</span><div><strong>Diagram Batang (40%)</strong><br>Diagram dibuat dan dapat dibaca</div></div>
+            <div class="cbl-as-item"><span class="cbl-as-num">3</span><div><strong>Refleksi &amp; Analisis (30%)</strong><br>Menyebutkan barang termahal dan kesimpulan</div></div>
+          </div>
+          <div class="cbl-asesmen-card">
+            <div class="cbl-as-title">Rubrik Penilaian</div>
+            <table class="cbl-rubrik-table">
+              <thead><tr><th>Skor</th><th>Keterangan</th></tr></thead>
+              <tbody>
+                <tr><td>4</td><td>Semua benar, diagram tepat, analisis mendalam</td></tr>
+                <tr><td>3</td><td>Sebagian besar benar, diagram cukup baik</td></tr>
+                <tr><td>2</td><td>Setengah benar, diagram kurang tepat</td></tr>
+                <tr><td>1</td><td>Sebagian kecil benar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button class="btn-selesai" onclick="selesaikanKB(2)">✅ Selesaikan KB 2</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL SELAMAT
+================================================================ -->
+<div id="modalSelamat" class="modal-overlay">
+  <div class="modal-box modal-selamat">
+    <div class="confetti-row">🎊🎉🎊</div>
+    <div class="selamat-icon">🏆</div>
+    <h2>Selamat! Kamu Hebat!</h2>
+    <p id="selamatNama"></p>
+    <div class="bintang-row">⭐⭐⭐</div>
+    <p class="selamat-msg">Kamu telah menyelesaikan semua Kegiatan Belajar DENOMATH!</p>
+    <button class="btn-lanjut" onclick="tutupModalSelamat()">🏠 Kembali ke Beranda</button>
+  </div>
+</div>
+
+<!-- ================================================================
+     AI ASISTEN WIDGET
+================================================================ -->
+<div id="aiWidget" class="ai-widget">
+  <!-- Toggle button -->
+  <button class="ai-toggle-btn" id="aiToggleBtn" onclick="toggleAIWidget()" title="Tanya AI Asisten">
+    <div class="ai-btn-icon" id="aiBtnIcon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M9 9.3A2.7 2.7 0 0 1 12 7a2.7 2.7 0 0 1 2.7 2.7c0 1.8-1.8 2.7-1.8 4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="12" cy="17" r="0.8" fill="currentColor"/>
+      </svg>
+    </div>
+    <span class="ai-btn-label">Tanya AI</span>
+    <div class="ai-pulse-ring"></div>
+  </button>
+
+  <!-- Chat panel -->
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-panel-header">
+      <div class="ai-panel-info">
+        <div class="ai-avatar-mini">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M8 12l2.5 2.5L16 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="ai-panel-name">DENO AI</div>
+          <div class="ai-panel-status" id="aiStatus">
+            <span class="ai-dot"></span> Siap membantu!
+          </div>
+        </div>
+      </div>
+      <div class="ai-panel-actions">
+        <button class="ai-action-btn" id="voiceToggleBtn" onclick="toggleVoice()" title="Toggle suara">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" id="voiceIcon"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z" stroke="currentColor" stroke-width="1.8"/><path d="M5 11a7 7 0 0 0 14 0M12 19v2M9 21h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button class="ai-action-btn" onclick="clearChat()" title="Bersihkan chat">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="ai-action-btn ai-close-btn" onclick="toggleAIWidget()">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="ai-messages" id="aiMessages">
+      <div class="ai-msg ai-msg-bot">
+        <div class="ai-msg-avatar">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M8 12l2.5 2.5L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ai-msg-bubble">
+          <p>Halo! Aku DENO AI 🤖, asisten belajarmu untuk materi <strong>Redenominasi Rupiah</strong>. Kamu bisa bertanya tentang apa saja!</p>
+          <p style="margin-top:8px; font-size:0.8rem; opacity:0.75">Aktifkan 🎙️ di atas untuk mode percakapan suara!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick questions -->
+    <div class="ai-quick-questions" id="aiQuickQ">
+      <div class="ai-quick-label">Tanya Cepat:</div>
+      <div class="ai-quick-btns">
+        <button class="ai-quick-btn" onclick="sendQuickQuestion('Apa itu redenominasi rupiah?')">Apa itu redenominasi?</button>
+        <button class="ai-quick-btn" onclick="sendQuickQuestion('Apa bedanya redenominasi dan sanering?')">Beda redenominasi & sanering?</button>
+        <button class="ai-quick-btn" onclick="sendQuickQuestion('Cara membuat diagram batang?')">Cara buat diagram batang?</button>
+        <button class="ai-quick-btn" onclick="sendQuickQuestion('Berikan contoh soal redenominasi!')">Contoh soal redenominasi</button>
+      </div>
+    </div>
+
+    <div class="ai-input-area">
+      <div class="ai-voice-indicator" id="aiVoiceIndicator" style="display:none">
+        <div class="voice-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span>Mendengarkan...</span>
+        <button onclick="stopListening()">Stop</button>
+      </div>
+      <div class="ai-input-wrap" id="aiInputWrap">
+        <textarea class="ai-input" id="aiInput" placeholder="Tulis pertanyaanmu..." rows="1" onkeydown="handleAIKeydown(event)" oninput="autoResizeAI(this)"></textarea>
+        <div class="ai-input-btns">
+          <button class="ai-mic-btn" id="aiMicBtn" onclick="startListening()" title="Bicara">
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z" stroke="currentColor" stroke-width="1.8"/><path d="M5 11a7 7 0 0 0 14 0M12 19v2M9 21h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <button class="ai-send-btn" id="aiSendBtn" onclick="sendAIMessage()">
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2025 DENOMATH – Media Pembelajaran Interaktif Matematika &amp; Redenominasi Rupiah</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
